@@ -98,7 +98,6 @@ def generate_pdf():
         "{{ perdave_name }}": perdave_name,
 
         "{{ prieme_company }}": prieme_company,
-        "{{ prieme_position }}": prieme_position,
         "{{ prieme_name }}": prieme_name,
     }
 
