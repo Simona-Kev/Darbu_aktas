@@ -32,7 +32,7 @@ if "medziagos_df" not in st.session_state:
 col1, col2 = st.columns(2)
 
 with col1:
-    worker = st.text_input("Darbus atliko")
+    worker = st.text_input("Darbus atliko", "UAB „MASI Baltic“")
 
 with col2:
     client = st.text_input("Užsakovas")
@@ -95,12 +95,12 @@ col3, col4 = st.columns(2)
 
 with col3:
     perdave_company = st.text_input("Perdavė įmonė", "UAB „MASI Baltic“")
-    perdave_position = st.text_input("Perdavė pareigos", "Projektų vadovas")
-    perdave_name = st.text_input("Perdavė vardas")
+    perdave_position = st.text_input("Pareigos")
+    perdave_name = st.text_input("Vardas Pavardė")
 
 with col4:
-    prieme_company = st.text_input("Priėmė įmonė", "Klientas")
-    prieme_name = st.text_input("Priėmė vardas")
+    prieme_company = st.text_input("Priėmė: įmonė")
+    prieme_name = st.text_input("Priėmė: Vardas Pavardė")
 
 # -----------------------------
 # HTML ROWS
