@@ -178,8 +178,15 @@ def generate_pdf():
 
         "{{ prieme_company }}": prieme_company,
         "{{ prieme_name }}": prieme_name,
-        "{{ perdave_sig }}": f'<img src="data:image/png;base64,{perdave_sig}" style="height:60px;">' if perdave_sig else "",
-        "{{ prieme_sig }}": f'<img src="data:image/png;base64,{prieme_sig}" style="height:60px;">' if prieme_sig else "",
+        "{{ perdave_sig }}": (
+            f'<img src="data:image/png;base64,{perdave_sig}" style="height:60px;">'
+            if perdave_sig else ""
+            ),
+
+        "{{ prieme_sig }}": (
+            f'<img src="data:image/png;base64,{prieme_sig}" style="height:60px;">'
+            if prieme_sig else ""
+            ),
     }
     
     for k, v in replacements.items():
