@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+
 <style>
 
 /* PAGE */
@@ -12,32 +13,31 @@ body {
     color: black;
 }
 
-/* TOP HEADER */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
+/* =========================
+   HEADER (FIXED STRUCTURE)
+========================= */
+
 .header {
     width: 100%;
 }
 
-/* LOGO ROW */
+/* LOGO ROW (ALWAYS TOP) */
 .logo-row {
-    text-align: left;
-    margin-bottom: 10px;
+    width: 100%;
+    display: block;
+    margin-bottom: 8px;
 }
 
 .logo {
-    height: 50px; /* adjust as you like */
+    height: 50px;
 }
 
-/* INFO ROW */
+/* INFO ROW (BELOW LOGO, SAME LINE) */
 .info-row {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     font-size: 11px;
-    margin-top: 5px;
 }
 
 .info-box {
@@ -49,33 +49,16 @@ body {
 }
 
 .right {
-    text-align: left; /* matches your document style */
-}
-/* LOGO */
-.logo {
-    height: 50px;  
-    margin-top: -15px;
+    text-align: left;
 }
 
-/* HEADER TEXT */
-.header-left, .header-right {
+/* WORK TITLE */
+.work-title {
+    margin-top: 10px;
     font-size: 11px;
 }
 
-/* ROW ALIGNMENT FIX */
-.header-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-}
-
-/* LABEL LINE */
-.label-line {
-    margin-top: 12px;
-    font-size: 11px;
-}
-
-/* TITLE */
+/* MAIN TITLE */
 .title {
     text-align: center;
     margin-top: 10px;
@@ -119,7 +102,6 @@ td {
     font-size: 11px;
     border: 1px solid black;
     padding: 4px;
-    font-weight: normal;
 }
 
 /* COLUMN WIDTHS */
@@ -138,7 +120,6 @@ td {
     margin-top: 90px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
 }
 
 .sign-box {
@@ -153,6 +134,7 @@ td {
 }
 
 </style>
+
 </head>
 
 <body>
@@ -160,12 +142,12 @@ td {
 <!-- HEADER -->
 <div class="header">
 
-    <!-- ROW 1: LOGO -->
+    <!-- LOGO -->
     <div class="logo-row">
         <img src="MASI_LOGO2.png" class="logo">
     </div>
 
-    <!-- ROW 2: INFO -->
+    <!-- INFO ROW -->
     <div class="info-row">
 
         <div class="info-box left">
@@ -180,8 +162,8 @@ td {
 
 </div>
 
-<!-- WORK NAME -->
-<div class="label-line">
+<!-- WORK TITLE -->
+<div class="work-title">
     <strong>Darbų pavadinimas:</strong> {{ work_title }}
 </div>
 
@@ -231,12 +213,12 @@ td {
     </div>
 
     <div class="sign-box">
-    Priėmė<br>
-    {{ prieme_company }}<br>
-    {{ prieme_name }}
+        Priėmė<br>
+        {{ prieme_company }}<br>
+        {{ prieme_name }}
 
-    <div class="sign-line"></div>
-</div>
+        <div class="sign-line"></div>
+    </div>
 
 </div>
 
