@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import date
 from weasyprint import HTML
+import os
 
 st.set_page_config(layout="wide")
 
@@ -67,7 +68,7 @@ with col3:
 
 with col4:
     prieme_company = st.text_input("Priėmė - įmonė", "Klientas")
-    prieme_position = st.text_input("Priėmė - pareigos", "")
+    prieme_position = st.text_input("Priėmė - pareigos")
     prieme_name = st.text_input("Priėmė - vardas")
 
 # --- HTML ROW BUILDER ---
@@ -86,25 +87,27 @@ def generate_pdf():
         html = f.read()
 
     replacements = {
-    "{{ worker }}": worker,
-    "{{ client }}": client,
-    "{{ date }}": str(work_date),
-    "{{ darbai_rows }}": df_to_rows(darbai_df),
-    "{{ medziagos_rows }}": df_to_rows(medziagos_df),
+        "{{ worker }}": worker,
+        "{{ client }}": client,
+        "{{ date }}": str(work_date),
+        "{{ darbai_rows }}": df_to_rows(darbai_df),
+        "{{ medziagos_rows }}": df_to_rows(medziagos_df),
 
-    "{{ perdave_company }}": perdave_company,
-    "{{ perdave_position }}": perdave_position,
-    "{{ perdave_name }}": perdave_name,
+        "{{ perdave_company }}": perdave_company,
+        "{{ perdave_position }}": perdave_position,
+        "{{ perdave_name }}": perdave_name,
 
-    "{{ prieme_company }}": prieme_company,
-    "{{ prieme_position }}": prieme_position,
-    "{{ prieme_name }}": prieme_name,
-}
+        "{{ prieme_company }}": prieme_company,
+        "{{ prieme_position }}": prieme_position,
+        "{{ prieme_name }}": prieme_name,
+    }
 
     for key, val in replacements.items():
         html = html.replace(key, str(val))
 
-    return HTML(string=html, base_url=".").write_pdf()
+    base_path = os.path.abspath(".")
+
+    return HTML(string=html, base_url=base_path).write_pdf()
 
 # --- BUTTON ---
 if st.button("Generate PDF"):
