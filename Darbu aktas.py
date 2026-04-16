@@ -12,7 +12,7 @@ st.title("Atliktų darbų aktas")
 col1, col2 = st.columns(2)
 
 with col1:
-    worker = st.text_input("Darbus atliko (vardas)")
+    worker = st.text_input("Darbus atliko:", "UAB „MASI Baltic“")
 
 with col2:
     client = st.text_input("Užsakovas")
@@ -61,14 +61,13 @@ st.divider()
 col3, col4 = st.columns(2)
 
 with col3:
-    perdave_company = st.text_input("Perdavė įmonė", "UAB „MASI Baltic“")
-    perdave_position = st.text_input("Perdavė pareigos", "Projektų vadovas")
-    perdave_name = st.text_input("Perdavė vardas")
+    perdave_company = st.text_input("Perdavė: Įmonė", "UAB „MASI Baltic“")
+    perdave_position = st.text_input("Perdavė: Pareigos")
+    perdave_name = st.text_input("Perdavė: Vardas Pavardė")
 
 with col4:
-    prieme_company = st.text_input("Priėmė įmonė", "Klientas")
-    prieme_position = st.text_input("Priėmė pareigos")
-    prieme_name = st.text_input("Priėmė vardas")
+    prieme_company = st.text_input("Priėmė: Įmonė")
+    prieme_name = st.text_input("Priėmė: Vardas Pavardė")
 
 # --- HTML ROW BUILDER ---
 def df_to_rows(df):
