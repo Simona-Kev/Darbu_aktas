@@ -61,12 +61,14 @@ st.subheader("Parašai")
 col3, col4 = st.columns(2)
 
 with col3:
+    perdave_company = st.text_input("Perdavė - įmonė", "UAB „MASI Baltic“")
+    perdave_position = st.text_input("Perdavė - pareigos", "Projektų vadovas")
     perdave_name = st.text_input("Perdavė - vardas")
-    perdave_position = st.text_input("Perdavė - pareigos")
 
 with col4:
+    prieme_company = st.text_input("Priėmė - įmonė", "Klientas")
+    prieme_position = st.text_input("Priėmė - pareigos", "")
     prieme_name = st.text_input("Priėmė - vardas")
-    prieme_position = st.text_input("Priėmė - pareigos")
 
 # --- HTML ROW BUILDER ---
 def df_to_rows(df):
