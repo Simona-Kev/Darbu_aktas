@@ -1,27 +1,15 @@
 import streamlit as st
 import pandas as pd
 from datetime import date
-
-st.set_page_config(layout="wide")
+from weasyprint import HTML
 
 st.title("Atliktų darbų aktas")
 
-# --- HEADER ---
-col1, col2 = st.columns(2)
-
-with col1:
-    worker = st.text_input("Darbus atliko")
-
-with col2:
-    client = st.text_input("Užsakovas")
-
+worker = st.text_input("Darbus atliko")
+client = st.text_input("Užsakovas")
 work_date = st.date_input("Data", value=date.today())
 
-st.divider()
-
-# --- DARBAI TABLE ---
 st.subheader("Darbai")
-
 darbai_df = st.data_editor(
     pd.DataFrame({
         "Eil. Nr.": [1],
@@ -34,11 +22,7 @@ darbai_df = st.data_editor(
     use_container_width=True
 )
 
-st.divider()
-
-# --- MEDŽIAGOS TABLE ---
 st.subheader("Medžiagos")
-
 medziagos_df = st.data_editor(
     pd.DataFrame({
         "Eil. Nr.": [1],
@@ -50,18 +34,35 @@ medziagos_df = st.data_editor(
     use_container_width=True
 )
 
-st.divider()
+# --- PDF GENERATION ---
+def generate_pdf(worker, client, work_date, darbai_df, medziagos_df):
+    with open("template.html", "r", encoding="utf-8") as f:
+        html_template = f.read()
 
-# --- OUTPUT ---
-if st.button("Generate preview"):
-    st.subheader("Preview")
+    html = html_template.replace("{{ worker }}", worker)
+    html = html.replace("{{ client }}", client)
+    html = html.replace("{{ date }}", str(work_date))
 
-    st.write("**Darbus atliko:**", worker)
-    st.write("**Užsakovas:**", client)
-    st.write("**Data:**", work_date)
+    html = html.replace(
+        "{{ darbai_table }}",
+        darbai_df.to_html(index=False)
+    )
 
-    st.write("### Darbai")
-    st.dataframe(darbai_df)
+    html = html.replace(
+        "{{ medziagos_table }}",
+        medziagos_df.to_html(index=False)
+    )
 
-    st.write("### Medžiagos")
-    st.dataframe(medziagos_df)
+    pdf = HTML(string=html).write_pdf()
+    return pdf
+
+# --- BUTTON ---
+if st.button("Generate PDF"):
+    pdf_file = generate_pdf(worker, client, work_date, darbai_df, medziagos_df)
+
+    st.download_button(
+        label="Download PDF",
+        data=pdf_file,
+        file_name="atliktu_darbu_aktas.pdf",
+        mime="application/pdf"
+    )
