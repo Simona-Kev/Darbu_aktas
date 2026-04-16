@@ -9,7 +9,7 @@ st.set_page_config(layout="wide")
 st.title("Atliktų darbų aktas")
 
 # -----------------------------
-# SESSION STATE
+# SESSION STATE INIT (IMPORTANT)
 # -----------------------------
 if "darbai_df" not in st.session_state:
     st.session_state.darbai_df = pd.DataFrame({
@@ -38,6 +38,7 @@ with col2:
     client = st.text_input("Užsakovas")
 
 work_title = st.text_input("Darbų pavadinimas")
+
 work_date = st.date_input("Data", value=date.today())
 
 st.divider()
@@ -55,7 +56,7 @@ st.session_state.darbai_df = st.data_editor(
     key="darbai_editor"
 )
 
-# delete
+# delete darbai
 del_d = st.number_input("Ištrinti darbų eilutę", min_value=1, step=1)
 
 if st.button("Ištrinti darbą"):
@@ -88,7 +89,21 @@ if st.button("Ištrinti medžiagą"):
 st.divider()
 
 # -----------------------------
-# TABLE ROWS
+# SIGNATURES
+# -----------------------------
+col3, col4 = st.columns(2)
+
+with col3:
+    perdave_company = st.text_input("Perdavė įmonė", "UAB „MASI Baltic“")
+    perdave_position = st.text_input("Perdavė pareigos", "Projektų vadovas")
+    perdave_name = st.text_input("Perdavė vardas")
+
+with col4:
+    prieme_company = st.text_input("Priėmė įmonė", "Klientas")
+    prieme_name = st.text_input("Priėmė vardas")
+
+# -----------------------------
+# HTML ROWS
 # -----------------------------
 def df_to_rows(df):
     rows = ""
@@ -115,10 +130,17 @@ def generate_pdf():
 
         "{{ darbai_rows }}": df_to_rows(st.session_state.darbai_df),
         "{{ medziagos_rows }}": df_to_rows(st.session_state.medziagos_df),
+
+        "{{ perdave_company }}": perdave_company,
+        "{{ perdave_position }}": perdave_position,
+        "{{ perdave_name }}": perdave_name,
+
+        "{{ prieme_company }}": prieme_company,
+        "{{ prieme_name }}": prieme_name,
     }
 
     for k, v in replacements.items():
-        html = html.replace(k, v if v else "")
+        html = html.replace(k, str(v))
 
     base_path = os.path.abspath(".")
     return HTML(string=html, base_url=base_path).write_pdf()
