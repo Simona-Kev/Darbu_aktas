@@ -3,6 +3,10 @@ import pandas as pd
 from datetime import date
 from weasyprint import HTML
 import os
+from streamlit_drawable_canvas import st_canvas
+from PIL import Image
+import base64
+from io import BytesIO
 
 st.set_page_config(layout="wide")
 
@@ -102,6 +106,41 @@ with col4:
     prieme_company = st.text_input("Priėmė įmonė", "Klientas")
     prieme_name = st.text_input("Priėmė vardas")
 
+st.subheader("Perdavė parašas")
+
+canvas_perdave = st_canvas(
+    fill_color="rgba(255, 255, 255, 0)",
+    stroke_width=2,
+    stroke_color="#000000",
+    background_color="#ffffff",
+    height=150,
+    width=300,
+    drawing_mode="freedraw",
+    key="sig_perdave"
+)
+
+st.subheader("Priėmė parašas")
+
+canvas_prieme = st_canvas(
+    fill_color="rgba(255, 255, 255, 0)",
+    stroke_width=2,
+    stroke_color="#000000",
+    background_color="#ffffff",
+    height=150,
+    width=300,
+    drawing_mode="freedraw",
+    key="sig_prieme"
+)
+
+def get_image(canvas):
+    if canvas.image_data is None:
+        return None
+
+    img = Image.fromarray((canvas.image_data).astype("uint8"))
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+    return base64.b64encode(buffer.getvalue()).decode()
+
 # -----------------------------
 # HTML ROWS
 # -----------------------------
@@ -121,7 +160,9 @@ def df_to_rows(df):
 def generate_pdf():
     with open("template.html", "r", encoding="utf-8") as f:
         html = f.read()
-
+    perdave_sig = get_image(canvas_perdave)
+    prieme_sig = get_image(canvas_prieme)
+    
     replacements = {
         "{{ worker }}": worker,
         "{{ client }}": client,
@@ -137,8 +178,10 @@ def generate_pdf():
 
         "{{ prieme_company }}": prieme_company,
         "{{ prieme_name }}": prieme_name,
+        "{{ perdave_sig }}": f'<img src="data:image/png;base64,{perdave_sig}" style="height:60px;">' if perdave_sig else "",
+        "{{ prieme_sig }}": f'<img src="data:image/png;base64,{prieme_sig}" style="height:60px;">' if prieme_sig else "",
     }
-
+    
     for k, v in replacements.items():
         html = html.replace(k, str(v))
 
