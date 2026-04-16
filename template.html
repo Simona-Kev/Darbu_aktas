@@ -141,13 +141,8 @@ td {
     </div>
 
     <div class="info-row">
-        <div class="info-box">
-            Darbus atliko: {{ worker }}
-        </div>
-
-        <div class="info-box">
-            Užsakovas: {{ client }}
-        </div>
+        <div>Darbus atliko: {{ worker }}</div>
+        <div>Užsakovas: {{ client }}</div>
     </div>
 
 </div>
@@ -168,11 +163,11 @@ td {
 
 <table>
     <tr>
-        <th class="col-nr">Eil. Nr.</th>
-        <th class="col-name">Darbo pavadinimas</th>
-        <th class="col-desc">Aprašymas</th>
-        <th class="col-time">Atlikimo laikas</th>
-        <th class="col-notes">Pastabos</th>
+        <th>Eil. Nr.</th>
+        <th>Darbo pavadinimas</th>
+        <th>Aprašymas</th>
+        <th>Atlikimo laikas</th>
+        <th>Pastabos</th>
     </tr>
     {{ darbai_rows }}
 </table>
@@ -182,39 +177,13 @@ td {
 
 <table>
     <tr>
-        <th class="col-nr">Eil. Nr.</th>
-        <th class="col-m-name">Medžiagos pavadinimas</th>
-        <th class="col-m-qty">Kiekis</th>
-        <th class="col-m-notes">Pastabos</th>
+        <th>Eil. Nr.</th>
+        <th>Medžiagos pavadinimas</th>
+        <th>Kiekis</th>
+        <th>Pastabos</th>
     </tr>
     {{ medziagos_rows }}
 </table>
-
-<!-- SIGNATURES -->
-<div class="signatures">
-
-    <div class="sign-box">
-        Perdavė<br>
-        {{ perdave_company }}<br>
-        {{ perdave_position }}<br>
-        {{ perdave_name }}
-
-        <img src="{{ perdave_sig }}" class="signature-img">
-
-        <div class="sign-line"></div>
-    </div>
-
-    <div class="sign-box">
-        Priėmė<br>
-        {{ prieme_company }}<br>
-        {{ prieme_name }}
-
-        <img src="{{ prieme_sig }}" class="signature-img">
-
-        <div class="sign-line"></div>
-    </div>
-
-</div>
 
 </body>
 </html>
