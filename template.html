@@ -13,14 +13,18 @@ body {
     color: black;
 }
 
-/* HEADER */
+/* =========================
+   HEADER (FIXED STRUCTURE)
+========================= */
+
 .header {
     width: 100%;
 }
 
-/* LOGO */
+/* LOGO ROW (ALWAYS TOP) */
 .logo-row {
     width: 100%;
+    display: block;
     margin-bottom: 8px;
 }
 
@@ -28,29 +32,36 @@ body {
     height: 50px;
 }
 
-/* INFO ROW */
+/* INFO ROW (BELOW LOGO, SAME LINE) */
 .info-row {
     width: 100%;
     display: flex;
     justify-content: space-between;
     font-size: 11px;
-    margin-top: 10px;
 }
 
 .info-box {
     width: 50%;
 }
 
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: left;
+}
+
 /* WORK TITLE */
 .work-title {
-    margin-top: 25px;
+    margin-top: 10px;
     font-size: 11px;
 }
 
-/* TITLE */
+/* MAIN TITLE */
 .title {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 .title h2 {
@@ -65,11 +76,11 @@ body {
     margin-top: 5px;
 }
 
-/* SECTION */
+/* SECTION TITLES */
 .section-title {
     font-size: 12px;
     font-weight: bold;
-    margin-top: 30px;
+    margin-top: 18px;
 }
 
 /* TABLES */
@@ -93,7 +104,7 @@ td {
     padding: 4px;
 }
 
-/* COLUMNS */
+/* COLUMN WIDTHS */
 .col-nr { width: 6%; }
 .col-name { width: 24%; }
 .col-desc { width: 34%; }
@@ -106,7 +117,7 @@ td {
 
 /* SIGNATURES */
 .signatures {
-    margin-top: 80px;
+    margin-top: 90px;
     display: flex;
     justify-content: space-between;
 }
@@ -116,13 +127,8 @@ td {
     font-size: 11px;
 }
 
-.signature-img {
-    height: 60px;
-    margin: 5px 0;
-}
-
 .sign-line {
-    margin-top: 6px;
+    margin-top: 40px;
     border-top: 1px solid black;
     width: 100%;
 }
@@ -136,13 +142,22 @@ td {
 <!-- HEADER -->
 <div class="header">
 
+    <!-- LOGO -->
     <div class="logo-row">
         <img src="MASI_LOGO2.png" class="logo">
     </div>
 
+    <!-- INFO ROW -->
     <div class="info-row">
-        <div>Darbus atliko: {{ worker }}</div>
-        <div>Užsakovas: {{ client }}</div>
+
+        <div class="info-box left">
+            Darbus atliko: {{ worker }}
+        </div>
+
+        <div class="info-box right">
+            Užsakovas: {{ client }}
+        </div>
+
     </div>
 
 </div>
@@ -163,11 +178,11 @@ td {
 
 <table>
     <tr>
-        <th>Eil. Nr.</th>
-        <th>Darbo pavadinimas</th>
-        <th>Aprašymas</th>
-        <th>Atlikimo laikas</th>
-        <th>Pastabos</th>
+        <th class="col-nr">Eil. Nr.</th>
+        <th class="col-name">Darbo pavadinimas</th>
+        <th class="col-desc">Aprašymas</th>
+        <th class="col-time">Atlikimo laikas</th>
+        <th class="col-notes">Pastabos</th>
     </tr>
     {{ darbai_rows }}
 </table>
@@ -177,13 +192,35 @@ td {
 
 <table>
     <tr>
-        <th>Eil. Nr.</th>
-        <th>Medžiagos pavadinimas</th>
-        <th>Kiekis</th>
-        <th>Pastabos</th>
+        <th class="col-nr">Eil. Nr.</th>
+        <th class="col-m-name">Medžiagos pavadinimas</th>
+        <th class="col-m-qty">Kiekis</th>
+        <th class="col-m-notes">Pastabos</th>
     </tr>
     {{ medziagos_rows }}
 </table>
+
+<!-- SIGNATURES -->
+<div class="signatures">
+
+    <div class="sign-box">
+        Perdavė<br>
+        {{ perdave_company }}<br>
+        {{ perdave_position }}<br>
+        {{ perdave_name }}
+
+        <div class="sign-line"></div>
+    </div>
+
+    <div class="sign-box">
+        Priėmė<br>
+        {{ prieme_company }}<br>
+        {{ prieme_name }}
+
+        <div class="sign-line"></div>
+    </div>
+
+</div>
 
 </body>
 </html>
