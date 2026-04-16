@@ -35,26 +35,29 @@ medziagos_df = st.data_editor(
 )
 
 # --- PDF GENERATION ---
+def df_to_rows(df):
+    rows = ""
+    for i, row in df.iterrows():
+        rows += "<tr>"
+        for val in row:
+            rows += f"<td>{val}</td>"
+        rows += "</tr>"
+    return rows
+
+
 def generate_pdf(worker, client, work_date, darbai_df, medziagos_df):
     with open("template.html", "r", encoding="utf-8") as f:
-        html_template = f.read()
+        html = f.read()
 
-    html = html_template.replace("{{ worker }}", worker)
+    html = html.replace("{{ worker }}", worker)
     html = html.replace("{{ client }}", client)
     html = html.replace("{{ date }}", str(work_date))
 
-    html = html.replace(
-        "{{ darbai_table }}",
-        darbai_df.to_html(index=False)
-    )
+    html = html.replace("{{ darbai_rows }}", df_to_rows(darbai_df))
+    html = html.replace("{{ medziagos_rows }}", df_to_rows(medziagos_df))
 
-    html = html.replace(
-        "{{ medziagos_table }}",
-        medziagos_df.to_html(index=False)
-    )
-
-    pdf = HTML(string=html).write_pdf()
-    return pdf
+    from weasyprint import HTML
+    return HTML(string=html).write_pdf()
 
 # --- BUTTON ---
 if st.button("Generate PDF"):
