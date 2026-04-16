@@ -36,8 +36,7 @@ darbai_df = st.data_editor(
     num_rows="dynamic",
     use_container_width=True,
     hide_index=True,
-    key="darbai",
-    selection_mode="row"
+    key="darbai"
 )
 
 if st.button("Delete selected row (Darbai)"):
@@ -61,8 +60,7 @@ medziagos_df = st.data_editor(
     num_rows="dynamic",
     use_container_width=True,
     hide_index=True,
-    key="medziagos",
-    selection_mode="row"
+    key="medziagos"
 )
 
 if st.button("Delete selected row (Medžiagos)"):
