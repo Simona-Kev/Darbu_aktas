@@ -7,7 +7,7 @@ st.set_page_config(layout="wide")
 
 st.title("Atliktų darbų aktas")
 
-# --- HEADER INPUTS ---
+# --- HEADER ---
 col1, col2 = st.columns(2)
 
 with col1:
@@ -25,7 +25,6 @@ st.subheader("Darbai")
 
 darbai_df = st.data_editor(
     pd.DataFrame({
-        "Eil. Nr.": [1],
         "Darbo pavadinimas": [""],
         "Aprašymas": [""],
         "Atlikimo laikas": [""],
@@ -35,12 +34,14 @@ darbai_df = st.data_editor(
     use_container_width=True
 )
 
+# Auto numbering
+darbai_df.insert(0, "Eil. Nr.", range(1, len(darbai_df) + 1))
+
 # --- MEDŽIAGOS ---
 st.subheader("Medžiagos")
 
 medziagos_df = st.data_editor(
     pd.DataFrame({
-        "Eil. Nr.": [1],
         "Medžiagos pavadinimas": [""],
         "Kiekis": [""],
         "Pastabos": [""],
@@ -49,27 +50,53 @@ medziagos_df = st.data_editor(
     use_container_width=True
 )
 
-# --- HTML TABLE ROW BUILDER ---
+# Auto numbering
+medziagos_df.insert(0, "Eil. Nr.", range(1, len(medziagos_df) + 1))
+
+st.divider()
+
+# --- SIGNATURE INPUTS ---
+st.subheader("Parašai")
+
+col3, col4 = st.columns(2)
+
+with col3:
+    perdave_name = st.text_input("Perdavė - vardas")
+    perdave_position = st.text_input("Perdavė - pareigos")
+
+with col4:
+    prieme_name = st.text_input("Priėmė - vardas")
+    prieme_position = st.text_input("Priėmė - pareigos")
+
+# --- HTML ROW BUILDER ---
 def df_to_rows(df):
     rows = ""
-    for i, row in df.iterrows():
+    for _, row in df.iterrows():
         rows += "<tr>"
         for val in row:
             rows += f"<td>{val}</td>"
         rows += "</tr>"
     return rows
 
-# --- PDF GENERATOR ---
+# --- PDF GENERATION ---
 def generate_pdf():
     with open("template.html", "r", encoding="utf-8") as f:
         html = f.read()
 
-    html = html.replace("{{ worker }}", worker)
-    html = html.replace("{{ client }}", client)
-    html = html.replace("{{ date }}", str(work_date))
+    replacements = {
+        "{{ worker }}": worker,
+        "{{ client }}": client,
+        "{{ date }}": str(work_date),
+        "{{ darbai_rows }}": df_to_rows(darbai_df),
+        "{{ medziagos_rows }}": df_to_rows(medziagos_df),
+        "{{ perdave_name }}": perdave_name,
+        "{{ perdave_position }}": perdave_position,
+        "{{ prieme_name }}": prieme_name,
+        "{{ prieme_position }}": prieme_position,
+    }
 
-    html = html.replace("{{ darbai_rows }}", df_to_rows(darbai_df))
-    html = html.replace("{{ medziagos_rows }}", df_to_rows(medziagos_df))
+    for key, val in replacements.items():
+        html = html.replace(key, str(val))
 
     return HTML(string=html, base_url=".").write_pdf()
 
