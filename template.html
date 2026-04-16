@@ -5,29 +5,55 @@
 <style>
 body {
     font-family: Arial, sans-serif;
-    margin: 40px;
+    margin: 50px;
     font-size: 12px;
 }
 
+/* HEADER */
 .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    align-items: flex-start;
 }
 
+.logo {
+    height: 55px;
+    margin-bottom: 10px;
+}
+
+.header-left {
+    width: 50%;
+}
+
+.header-right {
+    width: 50%;
+    text-align: left;
+}
+
+/* TITLE */
 .title {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
 .title h2 {
     margin: 0;
+    font-size: 18px;
+    font-weight: bold;
 }
 
+/* SECTION LABELS */
 .section {
     margin-top: 25px;
 }
 
+.label {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+/* TABLES */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -38,83 +64,110 @@ th, td {
     border: 1px solid black;
     padding: 4px;
     font-size: 11px;
-    text-align: left;
 }
 
 th {
     text-align: center;
 }
 
-.small-col { width: 5%; }
-.medium-col { width: 20%; }
-.large-col { width: 35%; }
-.time-col { width: 10%; }
-
-.signatures {
-    margin-top: 60px;
-    display: flex;
-    justify-content: space-between;
+td {
+    height: 22px;
 }
 
-.line {
+/* COLUMN WIDTHS */
+.col-nr { width: 5%; }
+.col-name { width: 25%; }
+.col-desc { width: 35%; }
+.col-time { width: 10%; }
+.col-notes { width: 25%; }
+
+/* MATERIAL TABLE */
+.col-m-name { width: 60%; }
+.col-m-qty { width: 15%; }
+.col-m-notes { width: 25%; }
+
+/* SIGNATURES */
+.signatures {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.sign-box {
+    text-align: center;
+    width: 40%;
+}
+
+.sign-line {
     margin-top: 40px;
-    width: 250px;
     border-top: 1px solid black;
+    width: 100%;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-    <div>
-        <strong>Darbus atliko:</strong> {{ worker }}
+    <div class="header-left">
+        <img src="MASI_LOGO2.png" class="logo"><br>
+        Darbus atliko: {{ worker }}
     </div>
-    <div>
-        <strong>Užsakovas:</strong> {{ client }}
+    <div class="header-right">
+        Užsakovas: {{ client }}
     </div>
 </div>
 
+<div class="label">
+    Darbų pavadinimas:
+</div>
+
+<!-- TITLE -->
 <div class="title">
     <h2>Atliktų darbų aktas</h2>
     <div>{{ date }}</div>
 </div>
 
+<!-- DARBAI -->
 <div class="section">
     <strong>Darbai:</strong>
     <table>
         <tr>
-            <th class="small-col">Eil. Nr.</th>
-            <th class="medium-col">Darbo pavadinimas</th>
-            <th class="large-col">Aprašymas</th>
-            <th class="time-col">Atlikimo laikas</th>
-            <th class="medium-col">Pastabos</th>
+            <th class="col-nr">Eil. Nr.</th>
+            <th class="col-name">Darbo pavadinimas</th>
+            <th class="col-desc">Aprašymas</th>
+            <th class="col-time">Atlikimo laikas</th>
+            <th class="col-notes">Pastabos</th>
         </tr>
         {{ darbai_rows }}
     </table>
 </div>
 
+<!-- MEDŽIAGOS -->
 <div class="section">
     <strong>Medžiagos:</strong>
     <table>
         <tr>
-            <th class="small-col">Eil. Nr.</th>
-            <th class="large-col">Medžiagos pavadinimas</th>
-            <th class="medium-col">Kiekis</th>
-            <th class="medium-col">Pastabos</th>
+            <th class="col-nr">Eil. Nr.</th>
+            <th class="col-m-name">Medžiagos pavadinimas</th>
+            <th class="col-m-qty">Kiekis</th>
+            <th class="col-m-notes">Pastabos</th>
         </tr>
         {{ medziagos_rows }}
     </table>
 </div>
 
+<!-- SIGNATURES -->
 <div class="signatures">
-    <div>
+    <div class="sign-box">
         Perdavė
-        <div class="line"></div>
+        <div class="sign-line"></div>
     </div>
-    <div>
+    <div class="sign-box">
         Priėmė
-        <div class="line"></div>
+        <div class="sign-line"></div>
     </div>
 </div>
 
