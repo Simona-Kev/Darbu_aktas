@@ -94,13 +94,13 @@ st.divider()
 col3, col4 = st.columns(2)
 
 with col3:
-    perdave_company = st.text_input("Perdavė įmonė", "UAB „MASI Baltic“")
+    perdave_company = st.text_input("Perdavė: įmonė", "UAB „MASI Baltic“")
     perdave_position = st.text_input("Pareigos")
     perdave_name = st.text_input("Vardas Pavardė")
 
 with col4:
     prieme_company = st.text_input("Priėmė: įmonė")
-    prieme_name = st.text_input("Priėmė: Vardas Pavardė")
+    prieme_name = st.text_input("Vardas Pavardė")
 
 # -----------------------------
 # HTML ROWS
