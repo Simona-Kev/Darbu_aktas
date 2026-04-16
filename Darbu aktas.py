@@ -59,8 +59,17 @@ medziagos_df = st.data_editor(
         "Pastabos": [""],
     }),
     num_rows="dynamic",
-    use_container_width=True
+    use_container_width=True,
+    hide_index=True,
+    key="medziagos",
+    selection_mode="row"
 )
+
+if st.button("Delete selected row (Medžiagos)"):
+    selected = medziagos_df.index
+    if len(selected) > 0:
+        medziagos_df = medziagos_df.drop(selected).reset_index(drop=True)
+        st.rerun()
 
 medziagos_df.insert(0, "Eil. Nr.", [f"{i}." for i in range(1, len(medziagos_df) + 1)])
 
