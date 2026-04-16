@@ -86,16 +86,20 @@ def generate_pdf():
         html = f.read()
 
     replacements = {
-        "{{ worker }}": worker,
-        "{{ client }}": client,
-        "{{ date }}": str(work_date),
-        "{{ darbai_rows }}": df_to_rows(darbai_df),
-        "{{ medziagos_rows }}": df_to_rows(medziagos_df),
-        "{{ perdave_name }}": perdave_name,
-        "{{ perdave_position }}": perdave_position,
-        "{{ prieme_name }}": prieme_name,
-        "{{ prieme_position }}": prieme_position,
-    }
+    "{{ worker }}": worker,
+    "{{ client }}": client,
+    "{{ date }}": str(work_date),
+    "{{ darbai_rows }}": df_to_rows(darbai_df),
+    "{{ medziagos_rows }}": df_to_rows(medziagos_df),
+
+    "{{ perdave_company }}": perdave_company,
+    "{{ perdave_position }}": perdave_position,
+    "{{ perdave_name }}": perdave_name,
+
+    "{{ prieme_company }}": prieme_company,
+    "{{ prieme_position }}": prieme_position,
+    "{{ prieme_name }}": prieme_name,
+}
 
     for key, val in replacements.items():
         html = html.replace(key, str(val))
