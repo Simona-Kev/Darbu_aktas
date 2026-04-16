@@ -34,8 +34,17 @@ darbai_df = st.data_editor(
         "Pastabos": [""],
     }),
     num_rows="dynamic",
-    use_container_width=True
+    use_container_width=True,
+    hide_index=True,
+    key="darbai",
+    selection_mode="row"
 )
+
+if st.button("Delete selected row (Darbai)"):
+    selected = darbai_df.index
+    if len(selected) > 0:
+        darbai_df = darbai_df.drop(selected).reset_index(drop=True)
+        st.rerun()
 
 # auto numbering with dot
 darbai_df.insert(0, "Eil. Nr.", [f"{i}." for i in range(1, len(darbai_df) + 1)])
