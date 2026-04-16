@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 6px;
+            font-size: 12px;
+        }
+
+        .signatures {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Atliktų darbų aktas</h1>
+
+    <p><strong>Darbus atliko:</strong> {{ worker }}</p>
+    <p><strong>Užsakovas:</strong> {{ client }}</p>
+    <p><strong>Data:</strong> {{ date }}</p>
+
+    <div class="section">
+        <h3>Darbai</h3>
+        {{ darbai_table }}
+    </div>
+
+    <div class="section">
+        <h3>Medžiagos</h3>
+        {{ medziagos_table }}
+    </div>
+
+    <div class="signatures">
+        <div>Perdavė: __________________</div>
+        <div>Priėmė: __________________</div>
+    </div>
+
+</body>
+</html>
