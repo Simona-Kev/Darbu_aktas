@@ -130,6 +130,11 @@ td {
     width: 100%;
 }
 
+.signature-img {
+height: 60px;
+margin-bottom: 4px;
+}
+    
 .sign-box {
     width: 42%;
     font-size: 11px;
@@ -210,11 +215,10 @@ td {
         {{ perdave_company }}<br>
         {{ perdave_position }}<br>
         {{ perdave_name }}
-
         <br>
-        {{ perdave_sig }}
+        <img src="{{ perdave_sig }}" class="signature-img">
 
-        <div class="sign-line"></div>
+<div class="sign-line"></div>
     </div>
 
     <div class="sign-box">
@@ -222,8 +226,11 @@ td {
         {{ prieme_company }}<br>
         {{ prieme_name }}
 
-        <br>
-        {{ prieme_sig }}
+<br>
+
+<img src="{{ prieme_sig }}" class="signature-img">
+
+<div class="sign-line"></div>
 
         <div class="sign-line"></div>
     </div>
