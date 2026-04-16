@@ -8,14 +8,16 @@ st.set_page_config(layout="wide")
 
 st.title("Atliktų darbų aktas")
 
-# --- HEADER ---
+# --- HEADER (same level fix) ---
 col1, col2 = st.columns(2)
 
 with col1:
-    worker = st.text_input("Darbus atliko")
+    worker = st.text_input("Darbus atliko (vardas)")
 
 with col2:
     client = st.text_input("Užsakovas")
+
+work_title = st.text_input("Darbų pavadinimas")
 
 work_date = st.date_input("Data", value=date.today())
 
@@ -35,8 +37,8 @@ darbai_df = st.data_editor(
     use_container_width=True
 )
 
-# Auto numbering
-darbai_df.insert(0, "Eil. Nr.", range(1, len(darbai_df) + 1))
+# auto numbering with dot
+darbai_df.insert(0, "Eil. Nr.", [f"{i}." for i in range(1, len(darbai_df) + 1)])
 
 # --- MEDŽIAGOS ---
 st.subheader("Medžiagos")
@@ -51,25 +53,22 @@ medziagos_df = st.data_editor(
     use_container_width=True
 )
 
-# Auto numbering
-medziagos_df.insert(0, "Eil. Nr.", range(1, len(medziagos_df) + 1))
+medziagos_df.insert(0, "Eil. Nr.", [f"{i}." for i in range(1, len(medziagos_df) + 1)])
 
 st.divider()
 
-# --- SIGNATURE INPUTS ---
-st.subheader("Parašai")
-
+# --- SIGNATURES ---
 col3, col4 = st.columns(2)
 
 with col3:
-    perdave_company = st.text_input("Perdavė - įmonė", "UAB „MASI Baltic“")
-    perdave_position = st.text_input("Perdavė - pareigos", "Projektų vadovas")
-    perdave_name = st.text_input("Perdavė - vardas")
+    perdave_company = st.text_input("Perdavė įmonė", "UAB „MASI Baltic“")
+    perdave_position = st.text_input("Perdavė pareigos", "Projektų vadovas")
+    perdave_name = st.text_input("Perdavė vardas")
 
 with col4:
-    prieme_company = st.text_input("Priėmė - įmonė", "Klientas")
-    prieme_position = st.text_input("Priėmė - pareigos")
-    prieme_name = st.text_input("Priėmė - vardas")
+    prieme_company = st.text_input("Priėmė įmonė", "Klientas")
+    prieme_position = st.text_input("Priėmė pareigos")
+    prieme_name = st.text_input("Priėmė vardas")
 
 # --- HTML ROW BUILDER ---
 def df_to_rows(df):
@@ -81,7 +80,7 @@ def df_to_rows(df):
         rows += "</tr>"
     return rows
 
-# --- PDF GENERATION ---
+# --- PDF ---
 def generate_pdf():
     with open("template.html", "r", encoding="utf-8") as f:
         html = f.read()
@@ -89,7 +88,9 @@ def generate_pdf():
     replacements = {
         "{{ worker }}": worker,
         "{{ client }}": client,
+        "{{ work_title }}": work_title,
         "{{ date }}": str(work_date),
+
         "{{ darbai_rows }}": df_to_rows(darbai_df),
         "{{ medziagos_rows }}": df_to_rows(medziagos_df),
 
@@ -102,14 +103,13 @@ def generate_pdf():
         "{{ prieme_name }}": prieme_name,
     }
 
-    for key, val in replacements.items():
-        html = html.replace(key, str(val))
+    for k, v in replacements.items():
+        html = html.replace(k, str(v))
 
     base_path = os.path.abspath(".")
-
     return HTML(string=html, base_url=base_path).write_pdf()
 
-# --- BUTTON ---
+# --- DOWNLOAD ---
 if st.button("Generate PDF"):
     pdf = generate_pdf()
 
