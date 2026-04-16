@@ -21,8 +21,8 @@ body {
 
 /* LOGO */
 .logo {
-    height: 50px;   /* smaller than 70px */
-    margin-top: -5px;
+    height: 50px;  
+    margin-top: -15px;
 }
 
 /* HEADER TEXT */
@@ -128,18 +128,22 @@ td {
 <!-- HEADER -->
 <div class="header">
 
-    <div class="header-left">
-        <img src="MASI_LOGO2.png" class="logo"><br>
-
-        <div class="header-row">
-            <div>Darbus atliko:</div>
-            <div>{{ worker }}</div>
-        </div>
+    <!-- ROW 1: LOGO -->
+    <div class="logo-row">
+        <img src="MASI_LOGO2.png" class="logo">
     </div>
 
-    <div class="header-right">
-        Užsakovas:
-        <div style="margin-top: 5px;">{{ client }}</div>
+    <!-- ROW 2: INFO -->
+    <div class="info-row">
+
+        <div class="info-box left">
+            Darbus atliko: {{ worker }}
+        </div>
+
+        <div class="info-box right">
+            Užsakovas: {{ client }}
+        </div>
+
     </div>
 
 </div>
