@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <style>
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 50px;
     font-size: 12px;
 }
@@ -13,7 +13,6 @@ body {
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
 }
 
 .logo {
@@ -27,30 +26,30 @@ body {
 
 .header-right {
     width: 50%;
-    text-align: left;
+    text-align: right;
+    padding-top: 20px;
+}
+
+/* LABEL */
+.label {
+    margin-top: 20px;
 }
 
 /* TITLE */
 .title {
     text-align: center;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 30px;
 }
 
 .title h2 {
     margin: 0;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
-/* SECTION LABELS */
+/* SECTIONS */
 .section {
     margin-top: 25px;
-}
-
-.label {
-    margin-top: 20px;
-    margin-bottom: 5px;
 }
 
 /* TABLES */
@@ -71,48 +70,49 @@ th {
 }
 
 td {
-    height: 22px;
+    height: 24px;
 }
 
 /* COLUMN WIDTHS */
-.col-nr { width: 5%; }
-.col-name { width: 25%; }
-.col-desc { width: 35%; }
-.col-time { width: 10%; }
-.col-notes { width: 25%; }
+.col-nr { width: 6%; }
+.col-name { width: 24%; }
+.col-desc { width: 34%; }
+.col-time { width: 12%; }
+.col-notes { width: 24%; }
 
-/* MATERIAL TABLE */
 .col-m-name { width: 60%; }
 .col-m-qty { width: 15%; }
 .col-m-notes { width: 25%; }
 
 /* SIGNATURES */
 .signatures {
-    margin-top: 80px;
+    margin-top: 90px;
     display: flex;
     justify-content: space-between;
-    padding: 0 40px;
 }
 
 .sign-box {
-    text-align: center;
     width: 40%;
+    text-align: center;
 }
 
 .sign-line {
-    margin-top: 40px;
+    margin-top: 35px;
     border-top: 1px solid black;
-    width: 100%;
+}
+
+.sign-name {
+    margin-top: 5px;
+    font-size: 11px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <div class="header-left">
-        <img src="MASI_LOGO2.png" class="logo"><br>
+        <img src="logo.png" class="logo"><br>
         Darbus atliko: {{ worker }}
     </div>
     <div class="header-right">
@@ -124,13 +124,11 @@ td {
     Darbų pavadinimas:
 </div>
 
-<!-- TITLE -->
 <div class="title">
     <h2>Atliktų darbų aktas</h2>
     <div>{{ date }}</div>
 </div>
 
-<!-- DARBAI -->
 <div class="section">
     <strong>Darbai:</strong>
     <table>
@@ -145,7 +143,6 @@ td {
     </table>
 </div>
 
-<!-- MEDŽIAGOS -->
 <div class="section">
     <strong>Medžiagos:</strong>
     <table>
@@ -159,15 +156,19 @@ td {
     </table>
 </div>
 
-<!-- SIGNATURES -->
 <div class="signatures">
     <div class="sign-box">
         Perdavė
         <div class="sign-line"></div>
+        <div class="sign-name">{{ perdave_name }}</div>
+        <div class="sign-name">{{ perdave_position }}</div>
     </div>
+
     <div class="sign-box">
         Priėmė
         <div class="sign-line"></div>
+        <div class="sign-name">{{ prieme_name }}</div>
+        <div class="sign-name">{{ prieme_position }}</div>
     </div>
 </div>
 
