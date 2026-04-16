@@ -13,7 +13,7 @@ st.set_page_config(layout="wide")
 st.title("Atliktų darbų aktas")
 
 # -----------------------------
-# SESSION STATE INIT (IMPORTANT)
+# SESSION STATE INIT
 # -----------------------------
 if "darbai_df" not in st.session_state:
     st.session_state.darbai_df = pd.DataFrame({
@@ -42,7 +42,6 @@ with col2:
     client = st.text_input("Užsakovas")
 
 work_title = st.text_input("Darbų pavadinimas")
-
 work_date = st.date_input("Data", value=date.today())
 
 st.divider()
@@ -60,7 +59,6 @@ st.session_state.darbai_df = st.data_editor(
     key="darbai_editor"
 )
 
-# delete darbai
 del_d = st.number_input("Ištrinti darbų eilutę", min_value=1, step=1)
 
 if st.button("Ištrinti darbą"):
@@ -132,17 +130,20 @@ canvas_prieme = st_canvas(
     key="sig_prieme"
 )
 
+# -----------------------------
+# IMAGE CONVERTER
+# -----------------------------
 def get_image(canvas):
     if canvas.image_data is None:
         return None
 
-    img = Image.fromarray((canvas.image_data).astype("uint8"))
+    img = Image.fromarray(canvas.image_data.astype("uint8"))
     buffer = BytesIO()
     img.save(buffer, format="PNG")
     return base64.b64encode(buffer.getvalue()).decode()
 
 # -----------------------------
-# HTML ROWS
+# TABLE ROWS
 # -----------------------------
 def df_to_rows(df):
     rows = ""
@@ -160,9 +161,20 @@ def df_to_rows(df):
 def generate_pdf():
     with open("template.html", "r", encoding="utf-8") as f:
         html = f.read()
-    perdave_sig = get_image(canvas_perdave)
-    prieme_sig = get_image(canvas_prieme)
-    
+
+    perdave_sig_raw = get_image(canvas_perdave)
+    prieme_sig_raw = get_image(canvas_prieme)
+
+    perdave_sig = (
+        f'<img src="data:image/png;base64,{perdave_sig_raw}" style="height:60px;">'
+        if perdave_sig_raw else ""
+    )
+
+    prieme_sig = (
+        f'<img src="data:image/png;base64,{prieme_sig_raw}" style="height:60px;">'
+        if prieme_sig_raw else ""
+    )
+
     replacements = {
         "{{ worker }}": worker,
         "{{ client }}": client,
@@ -178,19 +190,13 @@ def generate_pdf():
 
         "{{ prieme_company }}": prieme_company,
         "{{ prieme_name }}": prieme_name,
-        "{{ perdave_sig }}": (
-            f'<img src="data:image/png;base64,{perdave_sig}" style="height:60px;">'
-            if perdave_sig else ""
-            ),
 
-        "{{ prieme_sig }}": (
-            f'<img src="data:image/png;base64,{prieme_sig}" style="height:60px;">'
-            if prieme_sig else ""
-            ),
+        "{{ perdave_sig }}": perdave_sig,
+        "{{ prieme_sig }}": prieme_sig,
     }
-    
+
     for k, v in replacements.items():
-        html = html.replace(k, str(v))
+        html = html.replace(k, v if v is not None else "")
 
     base_path = os.path.abspath(".")
     return HTML(string=html, base_url=base_path).write_pdf()
