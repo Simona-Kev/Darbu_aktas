@@ -3,53 +3,69 @@
 <head>
 <meta charset="utf-8">
 <style>
+
+/* PAGE */
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 50px;
-    font-size: 12px;
+    font-family: "Aptos", "Calibri", Arial, sans-serif;
+    margin: 35px;
+    font-size: 11px;
+    color: black;
 }
 
-/* HEADER */
+/* TOP HEADER */
 .header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
+/* LOGO */
 .logo {
-    height: 55px;
-    margin-bottom: 10px;
+    height: 70px;   /* moved more to top effect */
+    margin-top: -10px;
 }
 
-.header-left {
-    width: 50%;
+/* HEADER TEXT */
+.header-left, .header-right {
+    font-size: 11px;
 }
 
-.header-right {
-    width: 50%;
-    text-align: right;
-    padding-top: 20px;
+/* ROW ALIGNMENT FIX */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
 }
 
-/* LABEL */
-.label {
-    margin-top: 20px;
+/* LABEL LINE */
+.label-line {
+    margin-top: 12px;
+    font-size: 11px;
 }
 
 /* TITLE */
 .title {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .title h2 {
-    margin: 0;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: bold;
+    margin: 0;
 }
 
-/* SECTIONS */
-.section {
-    margin-top: 25px;
+.date {
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* SECTION TITLES */
+.section-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 18px;
 }
 
 /* TABLES */
@@ -59,18 +75,19 @@ table {
     margin-top: 5px;
 }
 
-th, td {
+th {
+    font-size: 12px;
+    font-weight: bold;
     border: 1px solid black;
     padding: 4px;
-    font-size: 11px;
-}
-
-th {
     text-align: center;
 }
 
 td {
-    height: 24px;
+    font-size: 11px;
+    border: 1px solid black;
+    padding: 4px;
+    font-weight: normal;
 }
 
 /* COLUMN WIDTHS */
@@ -86,90 +103,102 @@ td {
 
 /* SIGNATURES */
 .signatures {
-    margin-top: 100px;
+    margin-top: 90px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
 .sign-box {
     width: 42%;
-    text-align: left;
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 11px;
 }
 
 .sign-line {
-    margin-top: 35px;
+    margin-top: 40px;
     border-top: 1px solid black;
     width: 100%;
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
+
     <div class="header-left">
         <img src="MASI_LOGO2.png" class="logo"><br>
-        Darbus atliko: {{ worker }}
+
+        <div class="header-row">
+            <div>Darbus atliko:</div>
+            <div>{{ worker }}</div>
+        </div>
     </div>
+
     <div class="header-right">
-        Užsakovas: {{ client }}
+        Užsakovas:
+        <div style="margin-top: 5px;">{{ client }}</div>
     </div>
+
 </div>
 
-<div class="label">
-    Darbų pavadinimas:
+<!-- WORK NAME -->
+<div class="label-line">
+    <strong>Darbų pavadinimas:</strong> {{ work_title }}
 </div>
 
+<!-- TITLE -->
 <div class="title">
     <h2>Atliktų darbų aktas</h2>
-    <div>{{ date }}</div>
+    <div class="date">{{ date }}</div>
 </div>
 
-<div class="section">
-    <strong>Darbai:</strong>
-    <table>
-        <tr>
-            <th class="col-nr">Eil. Nr.</th>
-            <th class="col-name">Darbo pavadinimas</th>
-            <th class="col-desc">Aprašymas</th>
-            <th class="col-time">Atlikimo laikas</th>
-            <th class="col-notes">Pastabos</th>
-        </tr>
-        {{ darbai_rows }}
-    </table>
-</div>
+<!-- DARBAI -->
+<div class="section-title">Darbai</div>
 
-<div class="section">
-    <strong>Medžiagos:</strong>
-    <table>
-        <tr>
-            <th class="col-nr">Eil. Nr.</th>
-            <th class="col-m-name">Medžiagos pavadinimas</th>
-            <th class="col-m-qty">Kiekis</th>
-            <th class="col-m-notes">Pastabos</th>
-        </tr>
-        {{ medziagos_rows }}
-    </table>
-</div>
+<table>
+    <tr>
+        <th class="col-nr">Eil. Nr.</th>
+        <th class="col-name">Darbo pavadinimas</th>
+        <th class="col-desc">Aprašymas</th>
+        <th class="col-time">Atlikimo laikas</th>
+        <th class="col-notes">Pastabos</th>
+    </tr>
+    {{ darbai_rows }}
+</table>
 
+<!-- MEDŽIAGOS -->
+<div class="section-title">Medžiagos</div>
+
+<table>
+    <tr>
+        <th class="col-nr">Eil. Nr.</th>
+        <th class="col-m-name">Medžiagos pavadinimas</th>
+        <th class="col-m-qty">Kiekis</th>
+        <th class="col-m-notes">Pastabos</th>
+    </tr>
+    {{ medziagos_rows }}
+</table>
+
+<!-- SIGNATURES -->
 <div class="signatures">
 
     <div class="sign-box">
-        <div>Perdavė</div>
-        <div>{{ perdave_company }}</div>
-        <div>{{ perdave_position }}</div>
-        <div>{{ perdave_name }}</div>
+        Perdavė<br>
+        {{ perdave_company }}<br>
+        {{ perdave_position }}<br>
+        {{ perdave_name }}
 
         <div class="sign-line"></div>
     </div>
 
     <div class="sign-box">
-        <div>Priėmė</div>
-        <div>{{ prieme_company }}</div>
-        <div>{{ prieme_position }}</div>
-        <div>{{ prieme_name }}</div>
+        Priėmė<br>
+        {{ prieme_company }}<br>
+        {{ prieme_position }}<br>
+        {{ prieme_name }}
 
         <div class="sign-line"></div>
     </div>
