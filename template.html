@@ -13,27 +13,22 @@ body {
     color: black;
 }
 
-/* =========================
-   HEADER (FIXED STRUCTURE)
-========================= */
-
+/* HEADER */
 .header {
     width: 100%;
 }
 
-/* LOGO ROW (ALWAYS TOP) */
+/* LOGO */
 .logo-row {
     width: 100%;
-    display: block;
     margin-bottom: 8px;
 }
 
 .logo {
     height: 50px;
-    margin-top: -30px;
 }
 
-/* INFO ROW (BELOW LOGO, SAME LINE) */
+/* INFO ROW */
 .info-row {
     width: 100%;
     display: flex;
@@ -46,24 +41,16 @@ body {
     width: 50%;
 }
 
-.left {
-    text-align: left;
-}
-
-.right {
-    text-align: left;
-}
-
 /* WORK TITLE */
 .work-title {
-    margin-top: 30px;
+    margin-top: 25px;
     font-size: 11px;
 }
 
-/* MAIN TITLE */
+/* TITLE */
 .title {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .title h2 {
@@ -78,11 +65,11 @@ body {
     margin-top: 5px;
 }
 
-/* SECTION TITLES */
+/* SECTION */
 .section-title {
     font-size: 12px;
     font-weight: bold;
-    margin-top: 35px;
+    margin-top: 30px;
 }
 
 /* TABLES */
@@ -106,7 +93,7 @@ td {
     padding: 4px;
 }
 
-/* COLUMN WIDTHS */
+/* COLUMNS */
 .col-nr { width: 6%; }
 .col-name { width: 24%; }
 .col-desc { width: 34%; }
@@ -119,26 +106,25 @@ td {
 
 /* SIGNATURES */
 .signatures {
-    margin-top: 90px;
+    margin-top: 80px;
     display: flex;
     justify-content: space-between;
+}
+
+.sign-box {
+    width: 42%;
+    font-size: 11px;
+}
+
+.signature-img {
+    height: 60px;
+    margin: 5px 0;
 }
 
 .sign-line {
     margin-top: 6px;
     border-top: 1px solid black;
     width: 100%;
-}
-
-.signature-img {
-    height: 60px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
-    
-.sign-box {
-    width: 42%;
-    font-size: 11px;
 }
 
 </style>
@@ -150,22 +136,18 @@ td {
 <!-- HEADER -->
 <div class="header">
 
-    <!-- LOGO -->
     <div class="logo-row">
         <img src="MASI_LOGO2.png" class="logo">
     </div>
 
-    <!-- INFO ROW -->
     <div class="info-row">
-
-        <div class="info-box left">
+        <div class="info-box">
             Darbus atliko: {{ worker }}
         </div>
 
-        <div class="info-box right">
+        <div class="info-box">
             Užsakovas: {{ client }}
         </div>
-
     </div>
 
 </div>
@@ -216,10 +198,10 @@ td {
         {{ perdave_company }}<br>
         {{ perdave_position }}<br>
         {{ perdave_name }}
-        <br>
+
         <img src="{{ perdave_sig }}" class="signature-img">
 
-<div class="sign-line"></div>
+        <div class="sign-line"></div>
     </div>
 
     <div class="sign-box">
@@ -227,11 +209,7 @@ td {
         {{ prieme_company }}<br>
         {{ prieme_name }}
 
-<br>
-
-<img src="{{ prieme_sig }}" class="signature-img">
-
-<div class="sign-line"></div>
+        <img src="{{ prieme_sig }}" class="signature-img">
 
         <div class="sign-line"></div>
     </div>
