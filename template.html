@@ -95,21 +95,13 @@ td {
     width: 42%;
     text-align: left;
     font-size: 12px;
-}
-
-.sign-box div {
-    margin-bottom: 3px;
+    line-height: 1.4;
 }
 
 .sign-line {
-    margin-top: 40px;
+    margin-top: 35px;
     border-top: 1px solid black;
     width: 100%;
-}
-
-.sign-name {
-    margin-top: 5px;
-    font-size: 11px;
 }
 </style>
 </head>
@@ -118,7 +110,7 @@ td {
 
 <div class="header">
     <div class="header-left">
-        <img src="logo.png" class="logo"><br>
+        <img src="MASI_LOGO2.png" class="logo"><br>
         Darbus atliko: {{ worker }}
     </div>
     <div class="header-right">
@@ -163,7 +155,7 @@ td {
 </div>
 
 <div class="signatures">
-    
+
     <div class="sign-box">
         <div>Perdavė</div>
         <div>{{ perdave_company }}</div>
@@ -182,14 +174,6 @@ td {
         <div class="sign-line"></div>
     </div>
 
-</div>
-
-    <div class="sign-box">
-        Priėmė
-        <div class="sign-line"></div>
-        <div class="sign-name">{{ prieme_name }}</div>
-        <div class="sign-name">{{ prieme_position }}</div>
-    </div>
 </div>
 
 </body>
