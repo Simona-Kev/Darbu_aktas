@@ -1,65 +1,122 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
+<meta charset="utf-8">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    font-size: 12px;
+}
 
-        h1 {
-            text-align: center;
-        }
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
 
-        .section {
-            margin-top: 30px;
-        }
+.title {
+    text-align: center;
+    margin-top: 30px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
+.title h2 {
+    margin: 0;
+}
 
-        table, th, td {
-            border: 1px solid black;
-        }
+.section {
+    margin-top: 25px;
+}
 
-        th, td {
-            padding: 6px;
-            font-size: 12px;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
 
-        .signatures {
-            margin-top: 60px;
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
+th, td {
+    border: 1px solid black;
+    padding: 4px;
+    font-size: 11px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+}
+
+.small-col { width: 5%; }
+.medium-col { width: 20%; }
+.large-col { width: 35%; }
+.time-col { width: 10%; }
+
+.signatures {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.line {
+    margin-top: 40px;
+    width: 250px;
+    border-top: 1px solid black;
+}
+</style>
 </head>
+
 <body>
 
-    <h1>Atliktų darbų aktas</h1>
-
-    <p><strong>Darbus atliko:</strong> {{ worker }}</p>
-    <p><strong>Užsakovas:</strong> {{ client }}</p>
-    <p><strong>Data:</strong> {{ date }}</p>
-
-    <div class="section">
-        <h3>Darbai</h3>
-        {{ darbai_table }}
+<div class="header">
+    <div>
+        <strong>Darbus atliko:</strong> {{ worker }}
     </div>
-
-    <div class="section">
-        <h3>Medžiagos</h3>
-        {{ medziagos_table }}
+    <div>
+        <strong>Užsakovas:</strong> {{ client }}
     </div>
+</div>
 
-    <div class="signatures">
-        <div>Perdavė: __________________</div>
-        <div>Priėmė: __________________</div>
+<div class="title">
+    <h2>Atliktų darbų aktas</h2>
+    <div>{{ date }}</div>
+</div>
+
+<div class="section">
+    <strong>Darbai:</strong>
+    <table>
+        <tr>
+            <th class="small-col">Eil. Nr.</th>
+            <th class="medium-col">Darbo pavadinimas</th>
+            <th class="large-col">Aprašymas</th>
+            <th class="time-col">Atlikimo laikas</th>
+            <th class="medium-col">Pastabos</th>
+        </tr>
+        {{ darbai_rows }}
+    </table>
+</div>
+
+<div class="section">
+    <strong>Medžiagos:</strong>
+    <table>
+        <tr>
+            <th class="small-col">Eil. Nr.</th>
+            <th class="large-col">Medžiagos pavadinimas</th>
+            <th class="medium-col">Kiekis</th>
+            <th class="medium-col">Pastabos</th>
+        </tr>
+        {{ medziagos_rows }}
+    </table>
+</div>
+
+<div class="signatures">
+    <div>
+        Perdavė
+        <div class="line"></div>
     </div>
+    <div>
+        Priėmė
+        <div class="line"></div>
+    </div>
+</div>
 
 </body>
 </html>
